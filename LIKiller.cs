@@ -34,7 +34,7 @@ namespace Killers
         public LIKiller()
         {
             GoogleDriveService googleService = new GoogleDriveService();
-            //ApplicationLinks = googleService.getEasyJobsFromLISheet();
+            JobApplications = googleService.getEasyJobsFromLISheet();
             setupDriver();
         }
         #endregion
@@ -50,6 +50,9 @@ namespace Killers
         {
             foreach(Job job in JobApplications)
             {
+                //TODO: Get rid  of this print after debugging
+                job.printJob();
+
                 string result = applyToJob(job.Link);
                 if (result == "success") CompletedLinks.Add(job.Link);
                 else ErrorLinks.Add(job.Link);
@@ -67,6 +70,7 @@ namespace Killers
         public string applyToJob(string url)
         {
             Driver.Navigate().GoToUrl(url);
+            Thread.Sleep(3000);
             //TODO: Find & click the apply button
             //TODO: Enter the appropriate information into the pop up
             //TODO: Find and click the submitt button

@@ -26,6 +26,7 @@ namespace Killers
         #endregion
 
 
+
         #region CONSTRUCTORS
         /// <summary>
         ///     This is the most basic accessory constructor that only takes in teh required fields of company name, job position, location
