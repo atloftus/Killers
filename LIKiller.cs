@@ -18,7 +18,8 @@ namespace Killers
     {
         #region PROPERTIES
         public string ChromeDriverRelativePath = (Directory.GetCurrentDirectory().Split(new string[] { "repos" }, StringSplitOptions.None))[0] + @"repos\Killers\chromedriver_win32";
-        public List<string> ApplicationLinks { get; set; } = new List<string>();
+        //public List<string> ApplicationLinks { get; set; } = new List<string>();
+        public List<Job> JobApplications { get; set; } = new List<Job>();
         public List<string> CompletedLinks { get; set; } = new List<string>();
         public List<string> ErrorLinks { get; set; } = new List<string>();
         public IWebDriver Driver { get; set; }
@@ -33,7 +34,7 @@ namespace Killers
         public LIKiller()
         {
             GoogleDriveService googleService = new GoogleDriveService();
-            ApplicationLinks = googleService.getEasyJobsFromLISheet();
+            //ApplicationLinks = googleService.getEasyJobsFromLISheet();
             setupDriver();
         }
         #endregion
@@ -47,12 +48,12 @@ namespace Killers
         /// <returns></returns>
         public int[] applyToJobs()
         {
-            foreach(string url in ApplicationLinks)
+            foreach(Job job in JobApplications)
             {
-                string result = applyToJob(url);
-                if (result == "success") CompletedLinks.Add(url);
-                else ErrorLinks.Add(url);
-                ApplicationLinks.Remove(url);
+                string result = applyToJob(job.Link);
+                if (result == "success") CompletedLinks.Add(job.Link);
+                else ErrorLinks.Add(job.Link);
+                JobApplications.Remove(job);
             }
             return new int[] { CompletedLinks.Count, ErrorLinks.Count};
         }

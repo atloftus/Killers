@@ -27,9 +27,9 @@ namespace Killers
         static string ApplicationName = "LIHunter";
         public string SpreadsheetID { get; set; } = "1Q70wUYzkFZcPbrF0ttrzffIlrEzlBfYH58pKx4x0nbY";
         public string LISheet { get; set; } = "LinkedIn";
-        public string LIRange { get; set; } = "LinkedIn!A2:J";
+        public string LIRange { get; set; } = "LinkedIn!A2:K";
         public string INSheet { get; set; } = "Indeed";
-        public string INRange { get; set; } = "Indeed!A2:J";
+        public string INRange { get; set; } = "Indeed!A2:K";
         SheetsService Service { get; set; }
         public List<Job> Jobs { get; set; }
         #endregion
@@ -97,8 +97,9 @@ namespace Killers
             {
                 if (!(existingRfids.Contains(job.RefID)))
                 {
-                    lineHolder = new List<object>() { job.CompanyName, job.Location, job.Position, job.IsEasyApply, job.DatePosted, job.DateAddedToSheet, job.Details, job.Link, job.RefID, job.Website };
-                    lineItems.Add(lineHolder);
+                    //lineHolder = new List<object>() { job.CompanyName, job.Location, job.Position, job.IsEasyApply, job.DatePosted, job.DateAddedToSheet, job.Details, job.Link, job.RefID, job.Website };
+                    //lineItems.Add(lineHolder);
+                    lineItems.Add(job.toSheetsRow());
                 }
             }
 
@@ -139,13 +140,13 @@ namespace Killers
             return existingRfids;
         }
 
-        public List<string> getEasyJobsFromLISheet() { return getEasyJobsFromSheet(LIRange); }
+        public List<Job> getEasyJobsFromLISheet() { return getEasyJobsFromSheet(LIRange); }
 
-        public List<string> getEasyJobsFromINSheet() { return getEasyJobsFromSheet(INRange); }
+        public List<Job> getEasyJobsFromINSheet() { return getEasyJobsFromSheet(INRange); }
 
-        public List<string> getEasyJobsFromSheet(string range)
+        public List<Job> getEasyJobsFromSheet(string range)
         {
-            List<string> existingJobLinks = new List<string>();
+            List<Job> existingJob = new List<Job>();
             SpreadsheetsResource.ValuesResource.GetRequest request = Service.Spreadsheets.Values.Get(SpreadsheetID, range);
             ValueRange response = request.Execute();
             IList<IList<Object>> values = response.Values;
@@ -153,11 +154,18 @@ namespace Killers
             {
                 foreach (var row in values)
                 {
-                    if ((((string)row[3]).ToUpper()).Contains('T')) existingJobLinks.Add((string) row[7]);
-                }
-                
+                    if ((((string)row[3]).ToUpper()).Contains('T'))
+                    {
+                        Job tempJob = new Job(row);
+
+                        //TODO: Get rid of this print statement after debugging
+                        tempJob.printJob();
+
+                        existingJob.Add(tempJob);
+                    }
+                }               
             }
-            return existingJobLinks;
+            return existingJob;
         }
         #endregion
     }
