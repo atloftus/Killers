@@ -1,0 +1,6 @@
+C:\Users\AlexanderLoftus\source\repos\Killers\bin\Debug\netstandard2.0\Killers.deps.json
+C:\Users\AlexanderLoftus\source\repos\Killers\bin\Debug\netstandard2.0\Killers.dll
+C:\Users\AlexanderLoftus\source\repos\Killers\obj\Debug\netstandard2.0\Killers.csprojAssemblyReference.cache
+C:\Users\AlexanderLoftus\source\repos\Killers\obj\Debug\netstandard2.0\Killers.csproj.CoreCompileInputs.cache
+C:\Users\AlexanderLoftus\source\repos\Killers\obj\Debug\netstandard2.0\Killers.AssemblyInfoInputs.cache
+C:\Users\AlexanderLoftus\source\repos\Killers\obj\Debug\netstandard2.0\Killers.AssemblyInfo.cs
