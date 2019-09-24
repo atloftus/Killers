@@ -16,22 +16,35 @@ namespace Killers
 {
     public class LIKiller
     {
+        #region PROPERTIES
         public string ChromeDriverRelativePath = (Directory.GetCurrentDirectory().Split(new string[] { "repos" }, StringSplitOptions.None))[0] + @"repos\Killers\chromedriver_win32";
         public List<string> ApplicationLinks { get; set; } = new List<string>();
         public List<string> CompletedLinks { get; set; } = new List<string>();
         public List<string> ErrorLinks { get; set; } = new List<string>();
         public IWebDriver Driver { get; set; }
+        #endregion
 
 
 
+        #region CONSTRUCTORS
+        /// <summary>
+        /// 
+        /// </summary>
         public LIKiller()
         {
             GoogleDriveService googleService = new GoogleDriveService();
             ApplicationLinks = googleService.getEasyJobsFromLISheet();
             setupDriver();
         }
+        #endregion
 
 
+
+        #region METHODS
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int[] applyToJobs()
         {
             foreach(string url in ApplicationLinks)
@@ -45,6 +58,11 @@ namespace Killers
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public string applyToJob(string url)
         {
             Driver.Navigate().GoToUrl(url);
@@ -56,11 +74,15 @@ namespace Killers
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void setupDriver()
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("--incognito");
             Driver = new ChromeDriver(ChromeDriverRelativePath, options);
         }
+        #endregion
     }
 }
