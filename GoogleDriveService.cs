@@ -25,7 +25,7 @@ namespace Killers
         GoogleCredential Credential { get; set; }
         public string SecretLocation { get; set; } = Directory.GetCurrentDirectory().Split(new string[] { "repos" }, StringSplitOptions.None)[0] + @"repos\client_secrets.json";
         static string ApplicationName = "LIHunter";
-        public string SpreadsheetID { get; set; } = "1Q70wUYzkFZcPbrF0ttrzffIlrEzlBfYH58pKx4x0nbY";
+        public string SpreadsheetID { get; set; } = "1Q70wUYzkFZcPbrF0ttrzffIlrEzlBfYH58pKx4x0nbY";2
         public string LISheet { get; set; } = "LinkedIn";
         public string LIRange { get; set; } = "LinkedIn!A2:K";
         public string INSheet { get; set; } = "Indeed";
